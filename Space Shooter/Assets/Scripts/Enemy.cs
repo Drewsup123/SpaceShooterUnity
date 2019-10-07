@@ -19,9 +19,14 @@ public class Enemy : MonoBehaviour
         // Move down at 4 meters per second
         // When / if it hits the bottom of the screen respawn at the top with random x position
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-        if(transform.position.y < -4f){
+        if(transform.position.y < -5f){
             float randInt = Random.Range(-9, 6);
             transform.position = new Vector3(randInt, 6f, 0);
         }
+    }
+
+    void OnTriggerEnter(Collider other) {
+        // Create logic to destroy when laser hits
+        // Create logic to destroy player if it hits player
     }
 }
