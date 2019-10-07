@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     // [SerializeField] Use this if you want designers to see and edit a private variable
 
     private float _speed = 3.5f;
+    [SerializeField]
+    public GameObject _laser;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+        // if space key is hit
+        // Spawn laser
+        if(Input.GetKeyDown(KeyCode.Space)){
+            Instantiate(_laser, transform.position, Quaternion.identity);
+        }
     }
 
     void Movement(){
