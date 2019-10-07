@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         // if space key is hit
         // Spawn laser
         if(Input.GetKeyDown(KeyCode.Space)){
-            Instantiate(_laser, transform.position, Quaternion.identity);
+            Instantiate(_laser, new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z), Quaternion.identity);
         }
     }
 
