@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
             }else{
                 GameObject newTripleShot = Instantiate(_tripleShot, position, Quaternion.identity);
             }
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 

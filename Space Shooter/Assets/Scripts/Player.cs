@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShot;
     private bool _tripleShotActive = false;
+    [SerializeField]
+    private UI_Manager _uiManager;
+    [SerializeField]
+    private Game_Manager _gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         // Updates variable spawn manager to the spawn manager component
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<Game_Manager>();
     }
 
     // Update is called once per frame
@@ -74,12 +79,18 @@ public class Player : MonoBehaviour
 
     public void Damage(){
         _lives--;
+        // Communicate with the spawn manager
+        if(_uiManager != null && _gameManager != null){
+            _uiManager.updateLives(_lives);
+        }
         if(_lives < 1){
-            // Communicate with the spawn manager
             if(_spawnManager != null){
                 _spawnManager.StopSpawnRoutine();
+            }
+            if(_gameManager != null){
+                _gameManager.setGameOver();
             }else{
-                Debug.LogError("Spawn Manager is null!");
+                Debug.Log("_gamemanager is null");
             }
             Destroy(this.gameObject);
         }
