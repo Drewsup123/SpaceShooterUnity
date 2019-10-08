@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider collider) {
+    void OnTriggerEnter2D(Collider2D collider) {
         // Create logic to destroy when laser hits
         // Create logic to destroy player if it hits player
         if(collider.tag == "UserLaser"){
