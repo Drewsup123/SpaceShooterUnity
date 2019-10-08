@@ -9,6 +9,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     private bool _B_keepSpawning = true;
+    [SerializeField]
+    private GameObject _tripleShot;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,9 +28,14 @@ public class SpawnManager : MonoBehaviour
             // Instantiate enemy
             // yield 5 seconds
         while(_B_keepSpawning){
+            int randomInt = Random.Range(0, 10);
             Vector3 position = new Vector3(Random.Range(-6, 6), 7, 0);
-            GameObject newEnemy = Instantiate(_enemy, position, Quaternion.identity);
-            newEnemy.transform.SetParent(_enemyContainer.transform);
+            if(randomInt > 1){
+                GameObject newEnemy = Instantiate(_enemy, position, Quaternion.identity);
+                newEnemy.transform.SetParent(_enemyContainer.transform);
+            }else{
+                GameObject newTripleShot = Instantiate(_tripleShot, position, Quaternion.identity);
+            }
             yield return new WaitForSeconds(5.0f);
         }
     }

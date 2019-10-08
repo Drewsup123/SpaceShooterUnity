@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpawnManager _spawnManager;
     private int _lives = 3;
+    // Need a variable for triple shot
+    [SerializeField]
+    private GameObject _tripleShot;
+    private bool _tripleShotActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +65,11 @@ public class Player : MonoBehaviour
         // if space key is hit
         // Spawn laser
         _nextFire = Time.time + _fireRate;
-        Instantiate(_laser, new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z), Quaternion.identity);
+        if(_tripleShotActive){
+            Instantiate(_tripleShot, new Vector3(transform.position.x, transform.position.y + 0.7f, 0), Quaternion.identity);
+        }else{
+            Instantiate(_laser, new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z), Quaternion.identity);
+        }
     }
 
     public void Damage(){
@@ -75,5 +83,17 @@ public class Player : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+    }
+
+    public void TripleActivate(){
+        // Triple shot becomes active
+        // Triple shot is turned off after some odd seconds
+        _tripleShotActive = true;
+        StartCoroutine(PowerupActive());
+    }
+
+    IEnumerator PowerupActive(){
+        yield return new WaitForSeconds(5.0f);
+        _tripleShotActive = false;
     }
 }
