@@ -25,8 +25,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider collider) {
         // Create logic to destroy when laser hits
         // Create logic to destroy player if it hits player
+        if(collider.tag == "UserLaser"){
+            Destroy(this.gameObject);
+            Destroy(collider.gameObject);
+        }
+        if(collider.tag == "Player"){
+            // Null Checking player
+            Player player = collider.GetComponent<Player>();
+            Debug.Log(player);
+            if(player != null){
+                player.Damage();
+            }
+            Destroy(this.gameObject);
+        }
     }
 }
